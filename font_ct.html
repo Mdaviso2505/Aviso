@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to SVG Converter</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        h1 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        input[type="file"] {
+            display: block;
+            margin: 0 auto 20px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #ccc;
+        }
+        #svgOutput {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Convert Image to SVG</h1>
+        <input type="file" id="imageInput" accept="image/*">
+        <p id="statusMessage"></p>
+        <div id="svgOutput"></div>
+        <button id="downloadBtn" disabled>Download SVG</button>
+    </div>
+
+    <script>
+        let svgData = '';
+
+        document.getElementById('imageInput').addEventListener('change', async function(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                document.getElementById('statusMessage').innerText = 'No file selected.';
+                return;
+            }
+
+            const statusMessage = document.getElementById('statusMessage');
+            const svgOutput = document.getElementById('svgOutput');
+            const downloadBtn = document.getElementById('downloadBtn');
+
+            // Clear previous results
+            statusMessage.innerText = '';
+            svgOutput.innerHTML = '';
+            downloadBtn.disabled = true;
+
+            try {
+                const imageBitmap = await createImageBitmap(file);
+                const canvas = document.createElement('canvas');
+                canvas.width = imageBitmap.width;
+                canvas.height = imageBitmap.height;
+                const context = canvas.getContext('2d');
+                context.drawImage(imageBitmap, 0, 0);
+
+                const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                svgData = convertImageDataToSVG(imageData);
+
+                svgOutput.innerText = svgData;
+                statusMessage.innerText = 'Conversion complete. You can download the SVG below:';
+                downloadBtn.disabled = false;
+            } catch (error) {
+                statusMessage.innerText = 'Error converting image to SVG: ' + error.message;
+            }
+        });
+
+        function convertImageDataToSVG(imageData) {
+            const { width, height } = imageData;
+            let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">\n`;
+
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const index = (y * width + x) * 4;
+                    const r = imageData.data[index];
+                    const g = imageData.data[index + 1];
+                    const b = imageData.data[index + 2];
+                    const a = imageData.data[index + 3] / 255;
+
+                    if (a > 0) {
+                        svg += `<rect x="${x}" y="${y}" width="1" height="1" fill="rgba(${r},${g},${b},${a})"/>\n`;
+                    }
+                }
+            }
+
+            svg += '</svg>';
+            return svg;
+        }
+
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const blob = new Blob([svgData], { type: 'image/svg+xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'image.svg';
+            a.click();
+            URL.revokeObjectURL(url);  // Release memory
+        });
+    </script>
+</body>
+</html>
