@@ -29986,15 +29986,18 @@ function Hq() {
             protoName: Dn.UnityProto.ProtoName.UNITY_INFO
         };
         a = Dn.UnityProto.encode(a).finish();
-        return Y.base64.encode(a, 0, a.byteLength)
-    };
-    O.prototype.getBase64ProtoBufNonEncoded = function() {
-        var a = this.getBase64ProtoBuf();
-        var b = O.prototype.getBase64ProtoBuf.b;
+        a = Y.base64.encode(a, 0, a.byteLength);
         a = a.replace(/\//g, '_');
         a = a.replace(/\+/g, '-');
         a = a.replace(/[=]+$/, '');
-        return [a,b]
+        return [b,a]        
+        
+    };
+    O.prototype.getBase64ProtoBufNonEncoded = function() {
+        var a = this.getBase64ProtoBuf();
+        
+ 
+        return a
     };
     O.prototype.getDTO = function() {
         return {
