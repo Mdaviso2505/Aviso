@@ -29981,13 +29981,25 @@ function Hq() {
             field_49: this.getScreenHeight(),
             field_50: this.getDeviceOrientation()
         };
-       
-        return a
+        var shimul1 = a;
+        var shimul2 = [Dn.UnityInfo.encode(a).finish()];
+        var shimul3 = Dn.UnityProto.EncryptionMethod.UNENCRYPTED;
+        var shimul4 = Dn.UnityProto.ProtoName.UNITY_INFO;
+        a = {
+            encryptedBlobs: [Dn.UnityInfo.encode(a).finish()],
+            encryptionMethod: Dn.UnityProto.EncryptionMethod.UNENCRYPTED,
+            protoName: Dn.UnityProto.ProtoName.UNITY_INFO
+        };
+        var shimul5 = Dn.UnityProto.encode(a).finish();
+        var shimul6 = Y.base64.encode(a, 0, a.byteLength)
+        a = Dn.UnityProto.encode(a).finish();
+        return [shimul1,shimul2,shimul3,shimul4,shimul5,shimul6]
     };
     O.prototype.getBase64ProtoBufNonEncoded = function() {
         var a = this.getBase64ProtoBuf();
-
-        return a
+        a = a.replace(/\//g, '_');
+        a = a.replace(/\+/g, '-');
+        return a = a.replace(/[=]+$/, '')
     };
     O.prototype.getDTO = function() {
         return {
