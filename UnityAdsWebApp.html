@@ -29391,10 +29391,8 @@ function Hq() {
                 c.prototype.field_50 = Y.Long ? Y.Long.fromBits(0, 0, !1) : 0;
                 c.encode = function(d, e) {
                     e || (e = Bt.create());
-                    return e.uint32(338).string(d.field_42)
-                   // null != d.field_1 && d.hasOwnProperty('field_1') && e.uint32(10).string(d.field_1);
-                    
-                   // null != d.field_2 && d.hasOwnProperty('field_2') && e.uint32(16).int64(d.field_2);
+                    null != d.field_1 && d.hasOwnProperty('field_1') && e.uint32(10).string(d.field_1);
+                    null != d.field_2 && d.hasOwnProperty('field_2') && e.uint32(16).int64(d.field_2);
                     null != d.field_3 && d.hasOwnProperty('field_3') && e.uint32(24).int64(d.field_3);
                     null != d.field_4 &&
                         d.hasOwnProperty('field_4') && e.uint32(32).int64(d.field_4);
@@ -29448,7 +29446,7 @@ function Hq() {
                     null != d.field_49 && d.hasOwnProperty('field_49') &&
                         e.uint32(392).int64(d.field_49);
                     null != d.field_50 && d.hasOwnProperty('field_50') && e.uint32(400).int64(d.field_50);
-                    
+                    return e
                 };
                 c.decode = function(d, e) {
                     d instanceof Cn || (d = Cn.create(d));
@@ -29981,25 +29979,22 @@ function Hq() {
             field_49: this.getScreenHeight(),
             field_50: this.getDeviceOrientation()
         };
-        var shimul1 = a;
-        
+        b = a;
         a = {
             encryptedBlobs: [Dn.UnityInfo.encode(a).finish()],
             encryptionMethod: Dn.UnityProto.EncryptionMethod.UNENCRYPTED,
             protoName: Dn.UnityProto.ProtoName.UNITY_INFO
         };
-        var shimul2 = a;
         a = Dn.UnityProto.encode(a).finish();
-        var shimul3 = a;
-        a = Y.base64.encode(a, 0, a.byteLength);
-        var shimul4 = a;
-        a = [shimul1,shimul2,shimul3,shimul4]
-        return a
+        return Y.base64.encode(a, 0, a.byteLength)
     };
     O.prototype.getBase64ProtoBufNonEncoded = function() {
         var a = this.getBase64ProtoBuf();
- 
-        return a 
+        var b = O.prototype.getBase64ProtoBuf.b;
+        a = a.replace(/\//g, '_');
+        a = a.replace(/\+/g, '-');
+        a = a.replace(/[=]+$/, '');
+        return [a,b]
     };
     O.prototype.getDTO = function() {
         return {
