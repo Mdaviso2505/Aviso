@@ -29391,10 +29391,10 @@ function Hq() {
                 c.prototype.field_50 = Y.Long ? Y.Long.fromBits(0, 0, !1) : 0;
                 c.encode = function(d, e) {
                     e || (e = Bt.create());
-                    return e.uint32(10).string(d.field_1)
+                    return e.uint32(16).int64(d.field_2)
                    // null != d.field_1 && d.hasOwnProperty('field_1') && e.uint32(10).string(d.field_1);
                     
-                    null != d.field_2 && d.hasOwnProperty('field_2') && e.uint32(16).int64(d.field_2);
+                   // null != d.field_2 && d.hasOwnProperty('field_2') && e.uint32(16).int64(d.field_2);
                     null != d.field_3 && d.hasOwnProperty('field_3') && e.uint32(24).int64(d.field_3);
                     null != d.field_4 &&
                         d.hasOwnProperty('field_4') && e.uint32(32).int64(d.field_4);
