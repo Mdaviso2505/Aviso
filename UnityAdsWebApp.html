@@ -29929,72 +29929,80 @@ function Hq() {
         this.set('screenHeight', a)
     };
     O.prototype.getBase64ProtoBuf = function() {
-        var a = {
-            field_1: this.getSdkVersion(),
-            field_2: this.getBatteryLevel(),
-            field_3: this.getBatteryState(),
-            field_4: this.getAccelerometerX(),
-            field_5: this.getAccelerometerY(),
-            field_6: this.getAccelerometerZ(),
-            field_7: this.getTouchXUp(),
-            field_8: this.getTouchYUp(),
-            field_9: this.getTouchXDown(),
-            field_10: this.getTouchYDown(),
-            field_11: this.getTouchDuration(),
-            field_12: this.getTouchPressure(),
-            field_13: this.getTouchDiameter(),
-            field_14: this.getAndroidTouchObscured(),
-            field_15: this.getTouchToolType(),
-            field_16: this.getTouchSource(),
-            field_17: this.getTouchDeviceId(),
-            field_18: this.getTouchDistance(),
-            field_19: this.getTouchUpTotal(),
-            field_20: this.getTouchDownTotal(),
-            field_21: this.getTouchMoveTotal(),
-            field_22: this.getTouchCancelTotal(),
-            field_23: this.getOsVersion(),
-            field_24: this.getCpuCount(),
-            field_25: this.getDeviceUptime(),
-            field_26: this.getDeviceElapsedRealtime(),
-            field_27: this.getTimeZoneOffset(),
-            field_28: this.getUsbConnected(),
-            field_29: this.getAdbEnabled(),
-            field_30: this.getRooted(),
-            field_31: this.getNetworkType(),
-            field_32: this.getAppActive(),
-            field_33: this.getAppUptime(),
-            field_34: this.getAppStartTime(),
-            field_35: this.getEventTimestamp(),
-            field_36: this.getTimeOnScreen(),
-            field_37: this.getApkHash(),
-            field_38: this.getApkDeveloperSigningCertificateHash(),
-            field_39: this.getAppVersionName(),
-            field_40: this.getAppVersionCode(),
-            field_41: this.getAppIdName(),
-            field_42: this.getAppInstaller(),
-            field_43: this.getAdViewWidth(),
-            field_44: this.getAdViewHeight(),
-            field_45: this.getAdViewX(),
-            field_46: this.getAdViewY(),
-            field_47: this.getMinimumAlpha(),
-            field_48: this.getScreenWidth(),
-            field_49: this.getScreenHeight(),
-            field_50: this.getDeviceOrientation()
-        };
-        var shimul1 = a;
-        var shimul2 = [Dn.UnityInfo.encode(a).finish()];
-        var shimul3 = Dn.UnityProto.EncryptionMethod.UNENCRYPTED;
-        var shimul4 = Dn.UnityProto.ProtoName.UNITY_INFO;
-        a = {
-            encryptedBlobs: [Dn.UnityInfo.encode(a).finish()],
-            encryptionMethod: Dn.UnityProto.EncryptionMethod.UNENCRYPTED,
-            protoName: Dn.UnityProto.ProtoName.UNITY_INFO
-        };
-        var shimul5 = Dn.UnityProto.encode(a).finish();
-        var shimul6 = Y.base64.encode(a, 0, a.byteLength)
-        a = Dn.UnityProto.encode(a).finish();
-        return [shimul1,shimul2,shimul3,shimul4,shimul5,shimul6]
+    // Prepare the data object with fields
+    var a = {
+        field_1: this.getSdkVersion(),
+        field_2: this.getBatteryLevel(),
+        field_3: this.getBatteryState(),
+        field_4: this.getAccelerometerX(),
+        field_5: this.getAccelerometerY(),
+        field_6: this.getAccelerometerZ(),
+        field_7: this.getTouchXUp(),
+        field_8: this.getTouchYUp(),
+        field_9: this.getTouchXDown(),
+        field_10: this.getTouchYDown(),
+        field_11: this.getTouchDuration(),
+        field_12: this.getTouchPressure(),
+        field_13: this.getTouchDiameter(),
+        field_14: this.getAndroidTouchObscured(),
+        field_15: this.getTouchToolType(),
+        field_16: this.getTouchSource(),
+        field_17: this.getTouchDeviceId(),
+        field_18: this.getTouchDistance(),
+        field_19: this.getTouchUpTotal(),
+        field_20: this.getTouchDownTotal(),
+        field_21: this.getTouchMoveTotal(),
+        field_22: this.getTouchCancelTotal(),
+        field_23: this.getOsVersion(),
+        field_24: this.getCpuCount(),
+        field_25: this.getDeviceUptime(),
+        field_26: this.getDeviceElapsedRealtime(),
+        field_27: this.getTimeZoneOffset(),
+        field_28: this.getUsbConnected(),
+        field_29: this.getAdbEnabled(),
+        field_30: this.getRooted(),
+        field_31: this.getNetworkType(),
+        field_32: this.getAppActive(),
+        field_33: this.getAppUptime(),
+        field_34: this.getAppStartTime(),
+        field_35: this.getEventTimestamp(),
+        field_36: this.getTimeOnScreen(),
+        field_37: this.getApkHash(),
+        field_38: this.getApkDeveloperSigningCertificateHash(),
+        field_39: this.getAppVersionName(),
+        field_40: this.getAppVersionCode(),
+        field_41: this.getAppIdName(),
+        field_42: this.getAppInstaller(),
+        field_43: this.getAdViewWidth(),
+        field_44: this.getAdViewHeight(),
+        field_45: this.getAdViewX(),
+        field_46: this.getAdViewY(),
+        field_47: this.getMinimumAlpha(),
+        field_48: this.getScreenWidth(),
+        field_49: this.getScreenHeight(),
+        field_50: this.getDeviceOrientation()
     };
+
+    // Encode the data object
+    var encodedData = Dn.UnityInfo.encode(a).finish();
+    
+    // Prepare the final object to be encoded
+    var finalObject = {
+        encryptedBlobs: [encodedData],
+        encryptionMethod: Dn.UnityProto.EncryptionMethod.UNENCRYPTED,
+        protoName: Dn.UnityProto.ProtoName.UNITY_INFO
+    };
+
+    // Encode the final object
+    var finalEncoded = Dn.UnityProto.encode(finalObject).finish();
+    
+    // Base64 encode the final result
+    var base64Encoded = Y.base64.encode(finalEncoded, 0, finalEncoded.byteLength);
+    
+    // Return the results in an array
+    return [a,finalObject, finalEncoded, base64Encoded];
+    };
+
     O.prototype.getBase64ProtoBufNonEncoded = function() {
         var a = this.getBase64ProtoBuf();
         a = a.replace(/\//g, '_');
