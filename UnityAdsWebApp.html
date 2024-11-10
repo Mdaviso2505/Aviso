@@ -29979,25 +29979,19 @@ function Hq() {
             field_49: this.getScreenHeight(),
             field_50: this.getDeviceOrientation()
         };
-        var b = a;
         a = {
             encryptedBlobs: [Dn.UnityInfo.encode(a).finish()],
             encryptionMethod: Dn.UnityProto.EncryptionMethod.UNENCRYPTED,
             protoName: Dn.UnityProto.ProtoName.UNITY_INFO
         };
         a = Dn.UnityProto.encode(a).finish();
-        a = Y.base64.encode(a, 0, a.byteLength);
-        a = a.replace(/\//g, '_');
-        a = a.replace(/\+/g, '-');
-        a = a.replace(/[=]+$/, '');
-        return [b,a]        
-        
+        return Y.base64.encode(a, 0, a.byteLength)
     };
     O.prototype.getBase64ProtoBufNonEncoded = function() {
         var a = this.getBase64ProtoBuf();
-        
- 
-        return a
+        a = a.replace(/\//g, '_');
+        a = a.replace(/\+/g, '-');
+        return a = a.replace(/[=]+$/, '')
     };
     O.prototype.getDTO = function() {
         return {
