@@ -105,5 +105,5 @@ def get_user_agent():
     finger_print = device_makes+"/"+model_split.lower()+"/"+model_split.lower()+":"+os_version+"/"+build_version+"/"+model_split+random_string+"1:user/release-keys"
     
     return [os_version,device_makes,device_model,dalvik_agent,user_agent,finger_print]
-    
-    
+
+print(get_user_agent())
