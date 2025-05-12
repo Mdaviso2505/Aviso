@@ -1,13 +1,13 @@
 import subprocess
 
 # Path to your Python script
-script_path = '/storage/emulated/0/FIREX/unity3dxy.py'
+script_path = '/storage/emulated/0/FIREX/unityakhi.py'
 
 # Initialize counters
 total_runs = 0
 restart_count = 0
 total_count = 20000
-each_count = 300
+each_count = 200
 while restart_count < total_count:
     processes = []
     
